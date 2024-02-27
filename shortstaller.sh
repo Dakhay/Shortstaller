@@ -19,7 +19,7 @@ if [ "$(id -u)" -eq 0 ]; then
 
     #Aliases building 
     echo "alias l='ls'" >> ~/.bash_aliases
-    echo "alias ls='ls -lghu --icons --octal-permissions --hyperlink'" >> ~/.bash_aliases
+    echo "alias ls='eza -lghu --icons --octal-permissions --hyperlink'" >> ~/.bash_aliases
     echo "alias la='ls -A'" >> ~/.bash_aliases
     echo "alias upd='sudo nala update'" >> ~/.bash_aliases 
     echo "alias upg='sudo nala upgrade'"  >> ~/.bash_aliases  
