@@ -1,8 +1,8 @@
 #!/bin/bash 
 
 if [ "$(id -u)" -eq 0 ]; then 
-    apt install nala 
-    nala install exa gdb curl wget gdb docker
+    apt install nala -y
+    nala install exa gdb curl wget gdb docker -y 
     nala update 
     nala upgrade -y
 
@@ -25,7 +25,7 @@ if [ "$(id -u)" -eq 0 ]; then
     echo "alias upg='sudo nala upgrade'"  >> ~/.bash_aliases  
     echo "alias maj='upd && upg -y'" >> ~/.bash_aliases 
     echo "alias cl='clear'" >> ~/.bash_aliases
-    echo "alias cping='ping google.fr'"
+    echo "alias cping='ping google.fr'" >> ~/.bash_aliases
 
     source ~/.bash_aliases
 
