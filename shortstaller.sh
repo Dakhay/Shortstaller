@@ -33,7 +33,7 @@ if [ "$(id -u)" -eq 0 ]; then
     echo "alias cat='batcat'" >> ~/.bash_aliases
     echo "alias cping='ping google.fr'" >> ~/.bash_aliases
 
-    echo "source ~/.bash_aliases" > /dev/null
+    source ~/.bash_aliases
 
 
 else
