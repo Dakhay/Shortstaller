@@ -1,13 +1,31 @@
 #!/bin/bash 
 
-if [ "$(id -u)" -eq 0 ]; then 
+if [ "$(id -u)" -eq 0 ]; then
     apt install nala -y
-    nala install exa gdb curl wget gdb docker terminator bat nano iproute2 nmap snap cargo ruby  -y 
+    nala install exa gdb curl wget gdb docker docker-compose terminator bat nano iproute2 nmap snap cargo ruby python3 -y 
     nala update 
     nala upgrade -y
 
-    #Metasploit 
-    snap install metasploit-framework
+    #BurpsSuite Install & Web Pentest 
+    wget "https://portswigger.net/burp/releases/download?producta =community&version=2024.1.1.6&type=Linux" -O burpsuite_install.sh
+    chmod +x burpsuite_install.sh 
+    ./burpsuite_install.sh
+    rm burpsuite_install.sh
+    
+    #Metasploit & Seachsploit
+    snap install searchsploit metasploit-framework
+
+    #wordlists
+    cd /usr/share
+    mkdir wordlists
+    cd wordlists 
+    wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
+    && unzip SecList.zip \
+    && rm -f SecList.zip 
+    wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+    gunzip rockyou.txt.gz
+    rm -f rockyou.txt.gz
+
 
 
     #EZA Install
@@ -16,10 +34,22 @@ if [ "$(id -u)" -eq 0 ]; then
     chown root:root eza
     mv eza /usr/local/bin/eza
 
+    #tools Directory
+    cd ~ 
+    mkdir tools 
+    cd tools 
+    
     #GDB Install 
     git clone https://github.com/longld/peda.git ~/peda
     echo "source ~/peda/peda.py" >> ~/.gdbinit
 
+    #impacket 
+    git clone https://github.com/SecureAuthCorp/impacket.git
+    cd impacket
+    pip install . 
+    cd .. 
+
+    echo 'export PATH="$PATH:/root/tools/impacket/examples"' >> $HOME/.bashrc
 
     #Aliases building 
     echo "alias l='ls'" >> ~/.bash_aliases
@@ -33,8 +63,11 @@ if [ "$(id -u)" -eq 0 ]; then
     echo "alias cat='batcat'" >> ~/.bash_aliases
     echo "alias cping='ping google.fr'" >> ~/.bash_aliases
 
-    source ~/.bash_aliases
+    source ~/.bash_aliases 
 
+  #docker Initializing 
+  docker pull ubuntu 
+  docker pull debian
 
 else
   echo "Run this script has root."
