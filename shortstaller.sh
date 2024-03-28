@@ -1,22 +1,38 @@
 #!/bin/bash 
 
 if [ "$(id -u)" -eq 0 ]; then
-    apt install nala -y
+    apt install nala -y 
     nala install exa gdb curl wget gdb docker docker-compose terminator bat nano iproute2 nmap snap cargo ruby python3 -y 
     nala update 
-    nala upgrade -y
-
+    nala upgrade -y 
+ 
     #BurpsSuite Install & Web Pentest 
-    wget "https://portswigger.net/burp/releases/download?producta =community&version=2024.1.1.6&type=Linux" -O burpsuite_install.sh
-    chmod +x burpsuite_install.sh 
-    ./burpsuite_install.sh
-    rm burpsuite_install.sh
+    wget "https://portswigger.net/burp/releases/download?producta =community&version=2024.1.1.6&type=Linux" -O burpsuite_install.sh  
+    chmod +x burpsuite_install.sh  
+    ./burpsuite_install.sh  
+    rm burpsuite_install.sh 
     
     #Metasploit & Seachsploit
     snap install searchsploit metasploit-framework
 
+
+
+
+    #linPEAS & winPEAS
+    cd ~ 
+    mkdir linpeas
+    cd linpeas
+    curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh > linpeas.sh
+    cd .. 
+    mkdir winpeas 
+    cd winpeas 
+    wget -O winPEAS.ps1 https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1
+    wget -O winPEAS.bat https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASbat/winPEAS.bat 
+
+
+
     #wordlists
-    cd /usr/share
+    cd ~
     mkdir wordlists
     cd wordlists 
     wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
